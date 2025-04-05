@@ -6,15 +6,15 @@ import axios from 'axios'
 function Dashboard() {
 	const navigate = useNavigate()
 	axios.defaults.withCredentials = true;
+
 	useEffect(() => {
-		axios.get('http://localhost:8081/api/v1/dashboard', { withCredentials: true })
+		axios.get('https://fpay-back.onrender.com/api/v1/dashboard', { withCredentials: true })
 		  .then(res => {
 			if (res.data.Status === "Success") {
 			  if (res.data.email !== "admin@gmail.com") {
 				const id = res.data.id;
 				navigate('/employeedetail/' + id);
 			  }
-			  // Admins stay on dashboard
 			} else {
 			  console.warn('Not authorized:', res.data);
 			  navigate('/');
@@ -25,23 +25,21 @@ function Dashboard() {
 			navigate('/');
 		  });
 	  }, []);
-	  
 
 	const handleLogout = () => {
-		axios.get('http://localhost:8081/api/v1/logout', { withCredentials: true })
+		axios.get('https://fpay-back.onrender.com/api/v1/logout', { withCredentials: true })
 		  .then(res => {
 			if (res.data.Status === "Success") {
-			  // Remove token from localStorage
 			  localStorage.removeItem('token');
 			  console.log('Logout Successful');
-			  navigate('/'); // Redirect to the login page
+			  navigate('/');
 			} else {
 			  console.log('Logout Failed:', res.data.Message);
 			}
 		  })
 		  .catch(err => console.error('Logout Error:', err));
 	  };
-	  
+
 	return (
 		<div className="container-fluid">
 			<div className="row flex-nowrap">
@@ -51,33 +49,32 @@ function Dashboard() {
 							<span className="fs-5 fw-bolder d-none d-sm-inline">Admin Dashboard</span>
 						</a>
 						<ul className="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
-  <li>
-    <Link to="/dashboard" className="nav-link text-white px-0 align-middle">
-      <i className="fs-4 bi-speedometer2"></i> <span className="ms-1 d-none d-sm-inline">Dashboard</span>
-    </Link>
-  </li>
-  <li>
-    <Link to="/dashboard/employee" className="nav-link px-0 align-middle text-white">
-      <i className="fs-4 bi-people"></i> <span className="ms-1 d-none d-sm-inline">Manage Employees</span>
-    </Link>
-  </li>
-  <li>
-    <Link to="/dashboard/attendance" className="nav-link px-0 align-middle text-white">
-      <i className="fs-4 bi-person"></i> <span className="ms-1 d-none d-sm-inline">Attendance</span>
-    </Link>
-  </li>
-  <li>
-    <Link to="/dashboard/history" className="nav-link px-0 align-middle text-white">
-      <i className="fs-4 bi-tools"></i> <span className="ms-1 d-none d-sm-inline">History</span>
-    </Link>
-  </li>
-  <li onClick={handleLogout}>
-    <a className="nav-link px-0 align-middle text-white" style={{ cursor: "pointer" }}>
-      <i className="fs-4 bi-power"></i> <span className="ms-1 d-none d-sm-inline">Logout</span>
-    </a>
-  </li>
-</ul>
-
+							<li>
+								<Link to="/dashboard" className="nav-link text-white px-0 align-middle">
+									<i className="fs-4 bi-speedometer2"></i> <span className="ms-1 d-none d-sm-inline">Dashboard</span>
+								</Link>
+							</li>
+							<li>
+								<Link to="/dashboard/employee" className="nav-link px-0 align-middle text-white">
+									<i className="fs-4 bi-people"></i> <span className="ms-1 d-none d-sm-inline">Manage Employees</span>
+								</Link>
+							</li>
+							<li>
+								<Link to="/dashboard/attendance" className="nav-link px-0 align-middle text-white">
+									<i className="fs-4 bi-person"></i> <span className="ms-1 d-none d-sm-inline">Attendance</span>
+								</Link>
+							</li>
+							<li>
+								<Link to="/dashboard/history" className="nav-link px-0 align-middle text-white">
+									<i className="fs-4 bi-tools"></i> <span className="ms-1 d-none d-sm-inline">History</span>
+								</Link>
+							</li>
+							<li onClick={handleLogout}>
+								<a className="nav-link px-0 align-middle text-white" style={{ cursor: "pointer" }}>
+									<i className="fs-4 bi-power"></i> <span className="ms-1 d-none d-sm-inline">Logout</span>
+								</a>
+							</li>
+						</ul>
 					</div>
 				</div>
 				<div className="col p-0 m-0">

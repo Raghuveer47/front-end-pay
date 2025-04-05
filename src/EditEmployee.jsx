@@ -55,20 +55,19 @@ function EditEmployee() {
   const navigate = useNavigate();
 
   const { id } = useParams();
-
   useEffect(() => {
     axios
-      .get(`http://localhost:8081/api/v1/get/${id}`)
+      .get(`https://fpay-back.onrender.com/api/v1/get/${id}`)
       .then((res) => {
         setData({ ...data, ...res.data.Result });
       })
       .catch((err) => console.log(err));
   }, []);
-
+  
   const handleSubmit = (event) => {
     event.preventDefault();
     axios
-      .put(`http://localhost:8081/api/v1/update/${id}`, data)
+      .put(`https://fpay-back.onrender.com/api/v1/update/${id}`, data)
       .then((res) => {
         console.log(res);
         if (res.data.Status === 'Success') {
@@ -77,6 +76,7 @@ function EditEmployee() {
       })
       .catch((err) => console.log(err));
   };
+  
 
   return (
     <div className="d-flex flex-column align-items-center pt-4">

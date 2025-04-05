@@ -13,7 +13,7 @@ function EmployeeDetail() {
   const [attendanceDataFetched, setAttendanceDataFetched] = useState(false);
   const handleDownloadPdf = async () => {
     try {
-      const response = await axios.get(`http://localhost:8081/api/v1/downloadpdf/${id}`, {
+      const response = await axios.get(`https://fpay-back.onrender.com/api/v1/downloadpdf/${id}`, {
         responseType: 'blob',
       });
       const blob = new Blob([response.data], { type: 'application/pdf' });
@@ -30,10 +30,10 @@ function EmployeeDetail() {
   };
   
   useEffect(() => {
-    axios.get(`http://localhost:8081/api/v1/get/${id}`)
+    axios.get(`https://fpay-back.onrender.com/api/v1/get/${id}`)
       .then(res => {
         setEmployee(res.data.Result);
-        axios.get(`http://localhost:8081/api/v1/attendace?id=${res.data.Result._id}`)
+        axios.get(`https://fpay-back.onrender.com/api/v1/attendace?id=${res.data.Result._id}`)
           .then(res => {
             setAttendances(res.data.attenadnce);
             setAttendanceDataFetched(true); // Mark attendance data as fetched
@@ -43,9 +43,9 @@ function EmployeeDetail() {
       })
       .catch(err => console.log(err));
   }, [id]);
-
+  
   const handleLogout = () => {
-    axios.get('http://localhost:8081/api/v1/logout', { withCredentials: true })
+    axios.get('https://fpay-back.onrender.com/api/v1/logout', { withCredentials: true })
       .then(res => {
         if (res.data.Status === "Success") {
           console.log('Logout Successful');
@@ -56,6 +56,7 @@ function EmployeeDetail() {
       })
       .catch(err => console.error('Logout Error:', err));
   };
+  
   
   
   const downloadPDF = () => {

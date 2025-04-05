@@ -17,18 +17,18 @@ function EmployeeLogin() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        axios.post('http://localhost:8081/api/v1/employeelogin', values)
-        .then(res => {
-            if(res.data.Status === 'Success') {
-                const id = res.data.id;
-                navigate('/employeedetail/'+id);
+        axios.post('https://fpay-back.onrender.com/api/v1/employeelogin', values)
+          .then(res => {
+            if (res.data.Status === 'Success') {
+              const id = res.data.id;
+              navigate('/employeedetail/' + id);
             } else {
-                toast.error(res.data.Error)
+              toast.error(res.data.Error);
             }
-        })
-        .catch(err => console.log(err));
-    }
-
+          })
+          .catch(err => console.log(err));
+      };
+      
     return (
         <div className='d-flex justify-content-center align-items-center vh-100 loginPage'>
             <ToastContainer/>

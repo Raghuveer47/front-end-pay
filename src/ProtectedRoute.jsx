@@ -4,7 +4,7 @@ import axios from "axios";
 useEffect(() => {
   const token = localStorage.getItem("token"); // or sessionStorage.getItem("token")
 
-  axios.get("http://localhost:8081/api/v1/dashboard", {
+  axios.get("https://fpay-back.onrender.com/api/v1/dashboard", {
     headers: {
       "x-token": token
     }

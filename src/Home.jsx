@@ -10,7 +10,7 @@ function Home() {
   const budget = 1900000;
 
   useEffect(() => {
-    axios.get('http://localhost:8081/api/v1/getEmployee')
+    axios.get('https://fpay-back.onrender.com/api/v1/getEmployee')
       .then(res => {
         if (res.data.Status === 'Success') {
           setEmployeeData(res.data.Result);
@@ -18,6 +18,7 @@ function Home() {
       })
       .catch(err => console.log(err));
   }, []);
+  
 
   const employeeCount = employeeData.length;
   const totalSalary = employeeData.reduce((sum, emp) => sum + parseFloat(emp.fixedctc || 0), 0);
